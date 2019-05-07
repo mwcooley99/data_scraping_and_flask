@@ -10,3 +10,10 @@
   <a class="btn btn-primary btn-lg" href="{{ url_for('index') }}" role="button">Refresh Page</a>
 </div>
 {% endblock %}
+
+{% block content %}
+<div class="container">
+    <p>{{ choice }}</p>
+</div>
+
+{% endblock %}
