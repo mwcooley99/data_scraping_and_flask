@@ -185,3 +185,8 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+.gitignore
+.idea/
+.ipynb_checkpoints/
+Day-02-Web-Scraping-Solutions.ipynb
+mission_to_mars.py
