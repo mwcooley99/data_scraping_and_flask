@@ -5,7 +5,7 @@
 {% block navbar %}
 <div class="jumbotron text-center">
   <h1 class="display-4">Mars News</h1>
-  <p class="lead">Here's some current news on Mars</p>
+  <p class="lead">Current News About Mars</p>
   <hr class="my-4">
   <a class="btn btn-primary btn-lg" href="{{ url_for('scraper') }}" role="button">Refresh Page</a>
 </div>
@@ -57,9 +57,10 @@
         <div class="row">
             {% for hem in info.hemisphere_image_urls %}
             <div class="col-md-12 col-xl-6 mt-3">
-                <h5 class="text-center">{{ hem.name }}</h5>
-                <hr class="my-4">
-                <img class="img-fluid p-3" src="{{ hem.url }}">
+                <div class="card">
+                    <h5 class="card-header">{{ hem.name }}</h5>
+                    <img class="card-img-bottom" src="{{ hem.url }}">
+                </div>
             </div>
             {% endfor %}
         </div>
