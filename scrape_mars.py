@@ -24,6 +24,20 @@ def scraper(url):
     return html
 
 
+def delete_attr(soup):
+    del soup['class']
+    del soup['id']
+
+    # get all html tags
+    tags = set([tag.name for tag in soup.find_all()])
+    for tag in tags:
+        for element in soup.find_all(tag):
+            del element['class']
+            del element['id']
+
+    return soup
+
+
 def scrape():
     # Create dict to hold data
     scrape_dict = {'date': datetime.utcnow()}
@@ -64,10 +78,9 @@ def scrape():
     html4 = scraper(url4)
     bs4 = BeautifulSoup(html4, 'lxml')
 
-    mars_facts = str(bs4.find('table', {'id': 'tablepress-mars'}))
+    mars_facts = delete_attr(bs4.find('table', {'id': 'tablepress-mars'}))
 
     scrape_dict['mars_facts_df'] = mars_facts
-    print(mars_facts)
 
     # 5. Mars Hemispheres
     base_url = 'https://astrogeology.usgs.gov'
@@ -96,6 +109,9 @@ def scrape():
 
 
 if __name__ == '__main__':
-    client = pymongo.MongoClient("mongodb://localhost:27017/")
-    collection = client.test.scrapes
-    collection.insert_one(scrape())
+    # client = pymongo.MongoClient("mongodb://localhost:27017/")
+    # collection = client.mars_db.scrapes
+    # collection.insert_one(scrape())
+    for k,v in scrape().items():
+        print(v)
+
