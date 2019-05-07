@@ -7,13 +7,14 @@
   <h1 class="display-4">Mars News</h1>
   <p class="lead">Here's some current news on Mars</p>
   <hr class="my-4">
-  <a class="btn btn-primary btn-lg" href="{{ url_for('index') }}" role="button">Refresh Page</a>
+  <a class="btn btn-primary btn-lg" href="{{ url_for('scraper') }}" role="button">Refresh Page</a>
 </div>
 {% endblock %}
 
 {% block content %}
 <div class="container">
     <p>{{ info.mars_facts_df | safe}}</p>
+    <p>{{ info.date }}</p>
 </div>
 
 {% endblock %}

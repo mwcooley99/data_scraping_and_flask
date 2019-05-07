@@ -80,7 +80,7 @@ def scrape():
 
     mars_facts = delete_attr(bs4.find('table', {'id': 'tablepress-mars'}))
 
-    scrape_dict['mars_facts_df'] = mars_facts
+    scrape_dict['mars_facts_df'] = str(mars_facts)
 
     # 5. Mars Hemispheres
     base_url = 'https://astrogeology.usgs.gov'
@@ -109,9 +109,9 @@ def scrape():
 
 
 if __name__ == '__main__':
-    # client = pymongo.MongoClient("mongodb://localhost:27017/")
-    # collection = client.mars_db.scrapes
-    # collection.insert_one(scrape())
-    for k,v in scrape().items():
-        print(v)
+    client = pymongo.MongoClient("mongodb://localhost:27017/")
+    collection = client.mars_db.scrapes
+    collection.insert_one(scrape())
+    # for k,v in scrape().items():
+    #     print(v)
 

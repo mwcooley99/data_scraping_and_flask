@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 from flask_bootstrap import Bootstrap
 
 import pymongo
@@ -15,13 +15,16 @@ collection = client.mars_db.scrapes
 
 @app.route('/')
 def index():
-    mars_info = collection.find().sort('date', pymongo.DESCENDING).limit(1).next()
-    print(mars_info)
+    mars_info = collection.find().sort('date', pymongo.DESCENDING).limit(
+        1).next()
     return render_template('index.html', info=mars_info)
 
-# @app.route('/scraper')
-# def scraper():
-#     dict =
+
+@app.route('/scraper')
+def scraper():
+    scrape()
+    collection.insert_one(scrape())
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
