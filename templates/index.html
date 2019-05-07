@@ -3,7 +3,7 @@
 {% block title %}Mars{% endblock %}
 
 {% block navbar %}
-<div class="jumbotron">
+<div class="jumbotron text-center">
   <h1 class="display-4">Mars News</h1>
   <p class="lead">Here's some current news on Mars</p>
   <hr class="my-4">
@@ -13,8 +13,58 @@
 
 {% block content %}
 <div class="container">
-    <p>{{ info.mars_facts_df | safe}}</p>
-    <p>{{ info.date }}</p>
+    <div class="row">
+        <div class="col">
+            <h2 class="text-left">Latest Mars News</h2>
+        <hr class="my-4">
+        <p>
+            <h5>{{ info.news_title }}</h5>
+            <p>{{ info.news_description }}</p>
+        </p>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-7">
+            <h3 class="text-center">Featured Image</h3>
+            <img class="img-fluid" src="{{ info.featured_image }}">
+        </div>
+        <div class="col-md-5">
+            <div class="row">
+                <div class="col-xs-12">
+{#                    <h5 class="text-center">Mars Weather</h5>#}
+{#                    <p>{{ info.mars_weather }}</p>#}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Mars Weather</h5>
+                            <p class="card-text">{{ info.mars_weather }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <h5 class="text-center">Mars Facts</h5>
+                    <div class="table">{{ info.mars_facts_df | safe}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+    <div class="col-xs-12">
+        <h2 class="text-center">Mars Hemispheres</h2>
+        <div class="row">
+            {% for hem in info.hemisphere_image_urls %}
+            <div class="col-md-12 col-xl-6 mt-3">
+                <h5 class="text-center">{{ hem.name }}</h5>
+                <hr class="my-4">
+                <img class="img-fluid p-3" src="{{ hem.url }}">
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
 </div>
 
 {% endblock %}

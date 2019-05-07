@@ -71,7 +71,8 @@ def scrape():
     bs3 = BeautifulSoup(html3, 'html.parser')
 
     scrape_dict['mars_weather'] = bs3.find('div', {
-        'class': 'js-tweet-text-container'}).text.strip()
+        'class': 'js-tweet-text-container'}).p.find(text=True,
+                                                    recursive=False).strip()
 
     # 4. Mars Facts
     url4 = 'https://space-facts.com/mars/'
@@ -114,4 +115,3 @@ if __name__ == '__main__':
     collection.insert_one(scrape())
     # for k,v in scrape().items():
     #     print(v)
-
