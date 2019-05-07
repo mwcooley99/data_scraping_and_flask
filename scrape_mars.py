@@ -5,8 +5,11 @@ import requests
 import subprocess
 
 import time
+from datetime import datetime
 
 from splinter import Browser
+
+import pymongo
 
 driver = subprocess.run(['which', 'chromedriver'],
                         stdout=subprocess.PIPE).stdout.decode('utf-8').strip()
@@ -23,7 +26,7 @@ def scraper(url):
 
 def scrape():
     # Create dict to hold data
-    scrape_dict = {}
+    scrape_dict = {'date': datetime.utcnow()}
 
     # 1. Nasa News Website
     url1 = 'https://mars.nasa.gov/news/'
@@ -63,7 +66,8 @@ def scrape():
 
     mars_facts = str(bs4.find('table', {'id': 'tablepress-mars'}))
 
-    scrape_dict['mars_facts_df'] = pd.read_html(mars_facts)
+    scrape_dict['mars_facts_df'] = mars_facts
+    print(mars_facts)
 
     # 5. Mars Hemispheres
     base_url = 'https://astrogeology.usgs.gov'
@@ -92,5 +96,6 @@ def scrape():
 
 
 if __name__ == '__main__':
-    for k, v in scrape().items():
-        print(v)
+    client = pymongo.MongoClient("mongodb://localhost:27017/")
+    collection = client.test.scrapes
+    collection.insert_one(scrape())
