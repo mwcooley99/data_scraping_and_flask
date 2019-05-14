@@ -22,7 +22,6 @@ def index():
 
 @app.route('/scraper')
 def scraper():
-    scrape()
     collection.insert_one(scrape())
     return redirect(url_for('index'))
 

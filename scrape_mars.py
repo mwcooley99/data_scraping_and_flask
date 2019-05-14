@@ -17,7 +17,7 @@ executable_path = {'executable_path': driver}
 
 
 def scraper(url):
-    with Browser('chrome', **executable_path, headless=True) as browser:
+    with Browser('chrome', **executable_path, headless=False) as browser:
         browser.visit(url)
         time.sleep(.5)
         html = browser.html
